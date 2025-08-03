@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
-import joblib
+import pickle
+from flask_cors import CORS
 
 # Load the trained model
-model = joblib.load('diabetes_model.pkl')
+with open("diabetes_model.pkl", "rb") as f:
+    model = pickle.load(f)
 
 app = Flask(__name__)
+CORS(app)
 
 # @app.route('/')
 # def index():
@@ -65,5 +68,5 @@ def predict():
     })
 
 
-if __name__ == '__main__':
-    app.run() #removed debug=True for deployment
+# if __name__ == '__main__':
+#     app.run(debug=True) #removed debug=True for deployment
